@@ -1,0 +1,35 @@
+version: "3.1"
+services:
+  adminer:
+    image: adminer:latest
+    restart: always
+    container_name: pictureframedb-adminer
+    ports:
+      - 8082:8080
+    depends_on:
+      - slideshowdb
+  slideshowdb:
+    image: mysql:latest
+    restart: always
+    container_name: pictureframedb
+    user: 1000:1000
+    volumes:
+      - /mnt/src/dragdropupload/db/data:/var/lib/mysql
+      - /mnt/src/dragdropupload/db/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: rootroot
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://slideshowdb:3306"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+  slideshow:
+    image: jksmith/slideshow:0.0.1
+    restart: always
+    container_name: slideshow
+    depends_on:
+      - slideshowdb
+    volumes: 
+      - /mnt/src/dragdropupload/uploads:/mnt/src/dragdropupload/uploads
+    ports:
+      - 60080:5000

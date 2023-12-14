@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Image Slideshow</title>
+        <link rel="stylesheet" href="static/slideshow.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="backgrounds-container">
+                {% block images %}
+                {% for picture in pictures %}
+                <img class="image" src="/static/images/{{picture[1]}}">
+                {% endfor %}
+                {% endblock %}
+
+            </div>
+        </div>
+        <script src="static/slideshow.js" defer></script>
+    </body>
+</html>

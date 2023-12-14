@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Drag and Drop File Uploader</title>
+        <link rel="stylesheet" href="static/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    </head>
+    <body>
+        <div class="wrapper">
+            <header>Upload image</header>
+            <span class="duration-area">
+                <label for="duration">Image display duration (secs)</label>
+                <input type="text" name="duration" id="duration" value="{{duration}}"/>
+            </span>
+            <form action="#">
+                <input type="file" accept="image/*" name="file" class="file-input" hidden/>
+                <i class="fas fa-cloud-upload-alt"></i>
+                <p>Browse file to upload</p>
+            </form>
+            <section class="progress-area"></section>
+            <section class="uploaded-area"></section>
+            <section class="picture-area">
+                <ul class="sortable-list">
+                </ul>
+            </section>
+        <script src="static/script.js" defer></script>
+    </body>
+</html>
