@@ -1,13 +1,13 @@
 version: "3.1"
 services:
-  adminer:
-    image: adminer:latest
-    restart: always
-    container_name: pictureframedb-adminer
-    ports:
-      - 8082:8080
-    depends_on:
-      - slideshowdb
+#  adminer:
+#    image: adminer:latest
+#    restart: always
+#    container_name: pictureframedb-adminer
+#    ports:
+#      - 8082:8080
+#    depends_on:
+#      - slideshowdb
   slideshowdb:
     image: mysql:latest
     restart: always
@@ -24,12 +24,12 @@ services:
       timeout: 10s
       retries: 5
   slideshow:
-    image: jksmith/slideshow:0.0.1
+    image: jeffspiinthesky/slideshow:0.0.1
     restart: always
     container_name: slideshow
     depends_on:
       - slideshowdb
     volumes: 
-      - /mnt/src/dragdropupload/uploads:/mnt/src/dragdropupload/uploads
+      - /mnt/src/dragdropupload/uploads:/flask/static/images
     ports:
-      - 60080:5000
+      - 80:5000

@@ -6,7 +6,7 @@ import mysql.connector
 import atexit
 
 app = Flask(__name__, instance_relative_config=True)
-UPLOAD_FOLDER = '/mnt/src/dragdropupload/flask/static/images'
+UPLOAD_FOLDER = '/flask/static/images'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 conn = mysql.connector.connect(user='root', password='rootroot', host='slideshowdb', port='3306', database='pictureframe')
