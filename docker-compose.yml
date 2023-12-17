@@ -1,13 +1,13 @@
 version: "3.1"
 services:
-#  adminer:
-#    image: adminer:latest
-#    restart: always
-#    container_name: pictureframedb-adminer
-#    ports:
-#      - 8082:8080
-#    depends_on:
-#      - slideshowdb
+  adminer:
+    image: adminer:latest
+    restart: always
+    container_name: pictureframedb-adminer
+    ports:
+      - 8082:8080
+    depends_on:
+      - slideshowdb
   slideshowdb:
     image: mysql:latest
     restart: always
@@ -20,8 +20,8 @@ services:
       MYSQL_ROOT_PASSWORD: rootroot
     healthcheck:
       test: ["CMD", "curl", "-f", "http://slideshowdb:3306"]
-      interval: 5s
-      timeout: 10s
+      interval: 30s
+      timeout: 30s
       retries: 5
   slideshow:
     image: jeffspiinthesky/slideshow:0.0.1
@@ -33,3 +33,19 @@ services:
       - /mnt/src/dragdropupload/uploads:/flask/static/images
     ports:
       - 80:5000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://slideshow:5000"]
+      interval: 30s
+      timeout: 30s
+      retries: 5
+  slideshowclient:
+    image: jeffspiinthesky/slideshow-client:0.0.1
+    restart: always
+    container_name: slideshowclient
+    depends_on:
+      - slideshow
+    privileged: true
+    volumes:
+      - /mnt/src/dragdropupload/uploads:/images
+      - /dev/fb0:/dev/fb0
+      - /dev/tty2:/dev/tty2
