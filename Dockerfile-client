@@ -1,0 +1,12 @@
+FROM ubuntu:22.04
+
+RUN apt update
+RUN apt upgrade -y
+RUN apt install -y curl jq fbi
+
+ADD slideshow.sh /usr/local/bin/slideshow.sh
+RUN chmod +x /usr/local/bin/slideshow.sh
+
+WORKDIR /usr/local/bin
+
+ENTRYPOINT ["/usr/local/bin/slideshow.sh"]
