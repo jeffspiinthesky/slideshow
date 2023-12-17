@@ -38,7 +38,10 @@ do
 	while read IMAGE 
 	do
 		echo "Displaying image ${IMAGE_DIR}/${IMAGE}"
+		PIDS=$(ps aux | grep 'fbi' | awk '{print $2}')
 		fbi -T 2 -d /dev/fb0 -noverbose -a ${IMAGE_DIR}/${IMAGE}
+		echo "Killing ${PIDS}"
+		kill -9 ${PIDS}
 		sleep ${DURATION}
 		# get change flag
 		CHANGE=$(curl -s http://slideshow:5000/getchange | jq ".[0]")
